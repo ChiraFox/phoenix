@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('promise');
+var Promise = require('bluebird');
 var unorm = require('unorm');
 var db = require('../lib/db');
 var tags = require('./tags');

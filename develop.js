@@ -6,7 +6,7 @@ var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var events = require('events');
-var Promise = require('promise');
+var Promise = require('bluebird');
 var minimatch = require('minimatch');
 var childProcess = require('child_process');
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-var Promise = require('promise');
+var Promise = require('bluebird');
 var redis = require('../lib/redis');
 
 function toInteger(obj) {

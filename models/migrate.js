@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('promise');
+var Promise = require('bluebird');
 var fs = require('fs');
 var pg = require('pg');
 var path = require('path');

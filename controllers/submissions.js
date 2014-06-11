@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('promise');
+var Promise = require('bluebird');
 var util = require('util');
 var querystring = require('querystring');
 var formSession = require('../lib/form-session');

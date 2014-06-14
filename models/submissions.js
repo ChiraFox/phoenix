@@ -96,15 +96,12 @@ function create(info) {
 				}
 
 				return tagsReady.then(function () {
-					console.log('Committing submission %d', submissionId);
 					return client.query('COMMIT');
 				}).then(function () {
 					client.done();
 					return submissionId;
 				});
 			}).catch(function (error) {
-				console.log('Rolling back');
-
 				function failWithOriginalError() {
 					client.done();
 					return Promise.reject(error);

@@ -1,6 +1,5 @@
 *.crt
 *.csr
 *.key
-dh-params.pem
 nginx.conf
 phoenix

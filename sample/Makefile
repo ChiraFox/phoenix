@@ -2,7 +2,7 @@ GNUTLS_CERTTOOL := certtool
 SITE_NAME := phoenix
 
 .PHONY: all
-all: $(SITE_NAME).crt dh-params.pem nginx.conf phoenix
+all: $(SITE_NAME).crt nginx.conf phoenix
 
 ca.key:
 	$(GNUTLS_CERTTOOL) --generate-privkey --hash sha256 --bits 4096 --outfile ca.key
@@ -30,9 +30,6 @@ $(SITE_NAME).crt: $(SITE_NAME).csr cert.cfg
 		--template cert.cfg \
 		--outfile $(SITE_NAME).crt
 
-dh-params.pem:
-	$(GNUTLS_CERTTOOL) --generate-dh-params --outfile dh-params.pem
-
 nginx.conf: nginx.conf.template template.js
 	node template \
 		username=$(shell whoami) \
@@ -46,17 +43,17 @@ phoenix: phoenix.template template.js
 
 .PHONY: clean
 clean:
-	rm -f ca.key ca.crt $(SITE_NAME).key $(SITE_NAME).csr $(SITE_NAME).crt dh-params.pem nginx.conf phoenix
+	rm -f ca.key ca.crt $(SITE_NAME).key $(SITE_NAME).csr $(SITE_NAME).crt nginx.conf phoenix
 
 .PHONY: install
-install: $(SITE_NAME).key $(SITE_NAME).crt dh-params.pem nginx.conf
+install: $(SITE_NAME).key $(SITE_NAME).crt nginx.conf
 	@! test -z $(NGINX_CONF_DIR) || ! echo 'NGINX_CONF_DIR is required.'
 
 	test -d $(NGINX_CONF_DIR)/../sites-available || mkdir $(NGINX_CONF_DIR)/../sites-available
 	test -d $(NGINX_CONF_DIR)/../sites-enabled || mkdir $(NGINX_CONF_DIR)/../sites-enabled
 
 	cp -i nginx.conf $(NGINX_CONF_DIR)
-	cp $(SITE_NAME).key $(SITE_NAME).crt dh-params.pem $(NGINX_CONF_DIR)
+	cp $(SITE_NAME).key $(SITE_NAME).crt $(NGINX_CONF_DIR)
 	cp phoenix $(NGINX_CONF_DIR)/../sites-available/
 
 	ln -sf ../sites-available/phoenix $(NGINX_CONF_DIR)/../sites-enabled/phoenix

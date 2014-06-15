@@ -7,10 +7,10 @@ var path = require('path');
 
 var config = require('../config');
 
-var readFile = Promise.denodeify(fs.readFile);
+var readFile = Promise.promisify(fs.readFile);
 
 var client = new pg.Client(config.database);
-var query_ = Promise.denodeify(client.query).bind(client);
+var query_ = Promise.promisify(client.query).bind(client);
 
 function query(sql) {
 	return function () {

@@ -1,0 +1,12 @@
+extends layout
+
+replace title
+	"System Error"
+
+replace content
+	h2
+		"Fatal system error!"
+	p
+		"The user, #{ data.params.username } cannot be found."
+	a href:"javascript:history.back()"
+		"Click here to go back"

@@ -17,7 +17,7 @@ html
 			" – Fur Affinity"
 
 		block stylesheets
-			link rel: "stylesheet" href: "/stylesheets/default.css"
+		link rel: "stylesheet" href: "/stylesheets/default.css"
 
 		link rel: "shortcut icon" href: "/images/favicon.ico"
 
@@ -35,7 +35,7 @@ html
 
 				ul id: "user-navigation"
 					if user.id
-						li a "~#{user.username}" href: "/users/#{user.username}/"
+						li a "~#{user.username}" href: "/user/#{user.username}/"
 
 						li a "Settings" href: "/settings/"
 

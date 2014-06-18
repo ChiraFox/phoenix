@@ -110,6 +110,10 @@ function ensure(privilege) {
 
 function byUsername(username) {
 	return db.query('SELECT id, username, registered, full_name, artist_type, current_mood, profile_text, views FROM users WHERE username = $1', [username]).then(function (result) {
+		if (result.rows.length !== 1) {
+			return Promise.reject(new Error('A user with the given username does not exist.'));
+		}
+
 		return result.rows[0];
 	});
 }

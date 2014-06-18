@@ -110,29 +110,29 @@ function ensure(privilege) {
 }
 
 var userFieldTypes = {
-  "COUNT":        "COUNT(id)", // You will get a number back instead of an object
-  "ID":           "id",
-  "USERNAME":     "username",
-  "REGISTERED":   "registered",
-  "FULL_NAME":    "full_name",
-  "ARTIST_TYPE":  "artist_type",
-  "CURRENT_MOOD": "current_mood",
-  "PROFILE_TEXT": "profile_text",
-  "VIEWS":        "views"
+	'COUNT':        'COUNT(id)', // You will get a number back instead of an object
+	'ID':           'id',
+	'USERNAME':     'username',
+	'REGISTERED':   'registered',
+	'FULL_NAME':    'full_name',
+	'ARTIST_TYPE':  'artist_type',
+	'CURRENT_MOOD': 'current_mood',
+	'PROFILE_TEXT': 'profile_text',
+	'VIEWS':        'views'
 };
 
 
 // Excludes password hash, because security!
 var validUserDataFields = {
-  "COUNT(id)":    true,
-  "id":           true,
-  "username":     true,
-  "registered":   true,
-  "full_name":    true,
-  "artist_type":  true,
-  "current_mood": true,
-  "profile_text": true,
-  "views":        true
+	'COUNT(id)':    true,
+	'id':           true,
+	'username':     true,
+	'registered':   true,
+	'full_name':    true,
+	'artist_type':  true,
+	'current_mood': true,
+	'profile_text': true,
+	'views':        true
 };
 
 /**
@@ -141,49 +141,49 @@ var validUserDataFields = {
  * @param {Array} fields - Names of fields in the users table to query.
  * @returns {*}
  */
-function getUserData( username, fields ) {
-  if ( !username ) {
-    return Promise.resolve( null );
-  }
+function getUserData(username, fields) {
+	if (!username) {
+		return Promise.resolve(null);
+	}
 
-  // Check for type of input
-  var queryMatch = null;
-  if ( typeof username === 'string' ) {
-    queryMatch = 'username';
-  } else if ( username instanceof User ) {
-    if ( username.id ) {
-      // Bonus for a primary key lookup
-      queryMatch = 'id';
-      username = username.id;
-    } else if ( username.username ) {
-      queryMatch = 'username';
-      username = username.username;
-    }
-  }
+	// Check for type of input
+	var queryMatch = null;
+	if (typeof username === 'string') {
+		queryMatch = 'username';
+	} else if (username instanceof User) {
+		if (username.id) {
+			// Bonus for a primary key lookup
+			queryMatch = 'id';
+			username = username.id;
+		} else if (username.username) {
+			queryMatch = 'username';
+			username = username.username;
+		}
+	}
 
-  // Make sure the input is legit.
-  if ( !queryMatch ) {
-    return Promise.resolve( null );
-  }
+	// Make sure the input is legit.
+	if (!queryMatch) {
+		return Promise.resolve(null);
+	}
 
-  // Filter out invalid field names, because no hax plz.
-  var stringFields = _.select( fields, function( field ) {
-    return validUserDataFields[ field ] || false;
-  } ).join( "," );
+	// Filter out invalid field names, because no hax plz.
+	var stringFields = _.select(fields, function (field) {
+		return validUserDataFields[field] || false;
+	}).join(',');
 
-  var queryString = "SELECT " + stringFields + " FROM users WHERE " + queryMatch + " = $1";
-  return db.query( queryString, [ username ] ).then( function ( result ) {
-    if ( !result ) {
-      return null;
-    }
-    var data = result.rows[ 0 ];
+	var queryString = 'SELECT ' + stringFields + ' FROM users WHERE ' + queryMatch + ' = $1';
+	return db.query(queryString, [username]).then(function (result) {
+		if (!result) {
+			return null;
+		}
+		var data = result.rows[0];
 
-    if ( !data ) {
-      return null;
-    } else {
-      return data;
-    }
-  } );
+		if (!data) {
+			return null;
+		} else {
+			return data;
+		}
+	});
 }
 
 /**
@@ -191,33 +191,33 @@ function getUserData( username, fields ) {
  * @param {(User|string)} username
  * @returns {Promise} - Promise returns null or { id, username, registered, full_name, artist_type, current_mood, profile_text, views }
  */
-function homepageData( username ) {
-  return getUserData( username, [
-    userFieldTypes.ID,
-    userFieldTypes.USERNAME,
-    userFieldTypes.REGISTERED,
-    userFieldTypes.FULL_NAME,
-    userFieldTypes.ARTIST_TYPE,
-    userFieldTypes.CURRENT_MOOD,
-    userFieldTypes.PROFILE_TEXT,
-    userFieldTypes.VIEWS
-  ] );
+function homepageData(username) {
+	return getUserData(username, [
+		userFieldTypes.ID,
+		userFieldTypes.USERNAME,
+		userFieldTypes.REGISTERED,
+		userFieldTypes.FULL_NAME,
+		userFieldTypes.ARTIST_TYPE,
+		userFieldTypes.CURRENT_MOOD,
+		userFieldTypes.PROFILE_TEXT,
+		userFieldTypes.VIEWS
+	]);
 }
 
-function exists( username ) {
-  return getUserData( username, [
-    userFieldTypes.COUNT
-  ] ).then( function( result ) {
-    return !!result;
-  } );
+function exists(username) {
+	return getUserData(username, [
+		userFieldTypes.COUNT
+	]).then(function (result) {
+		return !!result;
+	});
 }
 
-function basicData( username ) {
-  return getUserData( username, [
-    userFieldTypes.ID,
-    userFieldTypes.USERNAME,
-    userFieldTypes.FULL_NAME
-  ] );
+function basicData(username) {
+	return getUserData(username, [
+		userFieldTypes.ID,
+		userFieldTypes.USERNAME,
+		userFieldTypes.FULL_NAME
+	]);
 }
 
 exports.Privileged = Privileged;

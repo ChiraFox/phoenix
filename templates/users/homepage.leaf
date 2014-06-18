@@ -4,24 +4,24 @@ replace stylesheets
 	link rel: "stylesheet" href: "/stylesheets/homepage.css"
 
 replace title
-	"Hello, #{ data.params.username }"
+	"Hello, #{data.params.username}"
 
 replace content
 	% var userInfo = data.userInfo
 	div id: "userprofile"
 		ul.list
 			li "id#"
-				span "#{ userInfo.id }"
+				span "#{userInfo.id}"
 			li "username"
-				span "#{ userInfo.username }"
+				span "#{userInfo.username}"
 			li "registered date"
-				span "#{ (new Date(userInfo.registered) ).toString() }"
+				span "#{new Date(userInfo.registered).toString()}"
 			li "full name"
-				span "#{ userInfo.full_name }"
+				span "#{userInfo.full_name}"
 			li "artist type"
-				span "#{ userInfo.artist_type }"
+				span "#{userInfo.artist_type}"
 			li "mood"
-				span "#{ userInfo.current_mood }"
+				span "#{userInfo.current_mood}"
 			li "profile"
-				span "#{ userInfo.profile_text }"
+				span "#{userInfo.profile_text}"
 		span "Views: #{userInfo.views}"

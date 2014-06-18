@@ -22,6 +22,6 @@ app.use(require('./lib/form-session').middleware);
 app.use('/', routes.general);
 app.use('/', routes.authentication);
 app.use('/submissions/', routes.submissions);
-app.use('/', routes.users);
+app.use('/users/', routes.users);
 
 module.exports = app;

@@ -6,6 +6,6 @@ var promiseResponse = require('../lib/promise-response');
 
 var router = new express.Router();
 
-router.get('/user/:username', promiseResponse.html(users.homepage));
+router.get('/:username', promiseResponse.html(users.homepage));
 
 module.exports = router;

@@ -1,0 +1,32 @@
+extends layout
+
+append stylesheets
+	link rel: "stylesheet" href: "/stylesheets/profile.css"
+
+replace title
+	"#{data.user.username}’s profile"
+
+replace content
+	% var user = data.user;
+
+	dl id: "user-info"
+		dt "Username"
+		dd "#{user.username}"
+
+		dt "Registered"
+		dd "#{user.registered}"
+
+		dt "Full name"
+		dd "#{user.full_name}"
+
+		dt "Artist type"
+		dd "#{user.artist_type}"
+
+		dt "Mood"
+		dd "#{user.current_mood}"
+
+		dt "Profile views"
+		dd "#{user.views}"
+
+	div id: "user-profile-text"
+		!"#{bbcode(user.profile_text)}"

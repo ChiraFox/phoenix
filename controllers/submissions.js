@@ -71,17 +71,17 @@ function upload(request) {
 
 						form.on('finish', function () {
 							if (!fileCount) {
-								uploadForm(request).then(resolve).catch(reject);
+								resolve(uploadForm(request));
 								return;
 							}
 
-							Promise.all(files)
-								.then(function (associatedIds) {
+							resolve(
+								Promise.all(files).then(function (associatedIds) {
 									var redirectTo = '/submissions/new?' + querystring.stringify({ submit: associatedIds.filter(Boolean) });
 
-									resolve(new Redirect(redirectTo, Redirect.SEE_OTHER));
+									return new Redirect(redirectTo, Redirect.SEE_OTHER);
 								})
-								.catch(reject);
+							);
 						});
 					});
 				});

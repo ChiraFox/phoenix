@@ -7,6 +7,8 @@ var db = require('../lib/db');
 var bcrypt = require('bcrypt');
 var config = require('../config');
 
+Promise.promisifyAll(bcrypt);
+
 var bcryptRounds = config.password.bcryptRounds;
 
 assert((bcryptRounds | 0) === bcryptRounds, 'password.bcryptRounds should be an integer');
@@ -55,15 +57,8 @@ function authenticate(credentials) {
 			return { failureType: 'username' };
 		}
 
-		return new Promise(function (resolve, reject) {
-			bcrypt.compare(password, user.password_hash, function (error, match) {
-				if (error) {
-					reject(error);
-					return;
-				}
-
-				resolve(match ? { userId: user.id } : { failureType: 'password' });
-			});
+		return bcrypt.compareAsync(password, user.password_hash).then(function (match) {
+			return match ? { userId: user.id } : { failureType: 'password' };
 		});
 	});
 }
@@ -80,20 +75,10 @@ function create(credentials) {
 		return Promise.reject(new Error('A password is required.'));
 	}
 
-	return new Promise(function (resolve, reject) {
-		bcrypt.hash(password, bcryptRounds, function (error, hash) {
-			if (error) {
-				reject(error);
-				return;
-			}
-
-			db.query('INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id', [username, hash]).then(
-				function (result) {
-					resolve(result.rows[0].id);
-				},
-				reject
-			);
-		});
+	return bcrypt.hashAsync(password, bcryptRounds).then(function (hash) {
+		return db.query('INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id', [username, hash]);
+	}).then(function (result) {
+		return result.rows[0].id;
 	});
 }
 

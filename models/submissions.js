@@ -53,7 +53,7 @@ function create(info) {
 				var tagsReady;
 
 				if (tagNames.length) {
-					tagsReady = client.query('SELECT id, name FROM tags WHERE name IN (' + tagNames.map(function (_, i) { return '$' + (i + 1); }).join(', ') + ')', tagNames).then(function (result) {
+					tagsReady = client.query('SELECT id, name FROM tags WHERE name = ANY ($1)', [tagNames]).then(function (result) {
 						var existingTags = result.rows;
 
 						existingTags.sort(function (a, b) {

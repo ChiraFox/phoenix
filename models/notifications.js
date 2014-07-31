@@ -15,7 +15,7 @@ function counts(request) {
 		return Promise.resolve(null);
 	}
 
-	return redis.hmget('notifications:' + request.user.id, keys).then(function (values) {
+	return redis.hmgetAsync('notifications:' + request.user.id, keys).then(function (values) {
 		return {
 			notifications: _.zipObject(keys, values.map(toInteger))
 		};

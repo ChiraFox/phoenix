@@ -6,12 +6,12 @@
 		"email": "phoenix@furaffinity.net"
 	},
 	"dependencies": {
-		"bluebird": "~2.3.1",
+		"bluebird": "~2.3.2",
 		"pg": "~3.4.1",
 		"redis": "~0.12.1",
-		"sharp": "~0.6.0",
+		"sharp": "~0.6.1",
 		"busboy": "~0.2.8",
-		"express": "~4.8.5",
+		"express": "~4.8.7",
 		"razorleaf": "~2.3.0",
 		"lodash": "~2.4.1",
 		"bcrypt": "~0.8.0",

@@ -1,5 +1,3 @@
-[![Build status][Travis badge]][Build status]
-
 **Phoenix** is a rewrite of [Fur Affinity] in [Node.js],
 in an attempt to improve security and maintainability. It sports a full
 redesign of code, user interface, and database.
@@ -52,6 +50,3 @@ the database can be filled using `node models/add-test-data`.
   [GraphicsMagick]: http://www.graphicsmagick.org/
   [libvips]: https://github.com/jcupitt/libvips
   [GnuTLS]: http://www.gnutls.org/
-
-  [Build status]: https://travis-ci.org/FurAffinity/phoenix
-  [Travis badge]: https://api.travis-ci.org/FurAffinity/phoenix.svg?branch=master

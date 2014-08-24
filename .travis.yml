@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-    - "0.10"
-
-before_install:
-    - npm install eslint
-
-script:
-    - node node_modules/eslint/bin/eslint.js .

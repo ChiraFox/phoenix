@@ -1,7 +1,8 @@
 'use strict';
 
 var express = require('express');
-var routes = require('./routes');
+var controllers = require('./controllers');
+var promiseResponse = require('./lib/promise-response');
 
 var app = express();
 
@@ -14,14 +15,37 @@ if (app.get('env') === 'development') {
 	app.enable('strict routing');
 }
 
+app.disable('x-powered-by');
+
 // Cookie-based CSRF tokens and sessions
 app.use(require('./lib/cookie-parser').middleware);
 app.use(require('./lib/form-session').middleware);
 
 // Routes
-app.use('/', routes.general);
-app.use('/', routes.authentication);
-app.use('/submissions/', routes.submissions);
-app.use('/users/', routes.users);
+app.get('/', promiseResponse.html(controllers.general.home));
+
+app.get('/support/terms', promiseResponse.html(controllers.general.terms));
+app.get('/support/submission-agreement', promiseResponse.html(controllers.general.submissionAgreement));
+app.get('/support/acceptable-upload-policy', promiseResponse.html(controllers.general.aup));
+
+app.route('/login')
+	.get(promiseResponse.html(controllers.authentication.loginForm))
+	.post(promiseResponse.html(controllers.authentication.login));
+
+app.route('/logout')
+	.post(promiseResponse.html(controllers.authentication.logout));
+
+app.get('/submissions/new', promiseResponse.html(function (request) {
+	if (request.query.submit) {
+		return controllers.submissions.createForm(request);
+	}
+
+	return controllers.submissions.uploadForm(request);
+}));
+
+app.post('/submissions/', promiseResponse.html(controllers.submissions.create));
+app.post('/submissions/media/', promiseResponse.html(controllers.submissions.upload));
+
+app.get('/users/:username/', promiseResponse.html(controllers.users.homepage));
 
 module.exports = app;

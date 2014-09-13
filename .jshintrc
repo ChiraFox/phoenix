@@ -17,6 +17,9 @@
 	"trailing": true,
 
 	"eqnull": true,
+	"globals": {
+		"Promise": true
+	},
 
 	"node": true
 }

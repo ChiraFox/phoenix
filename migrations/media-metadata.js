@@ -14,8 +14,8 @@ exports.up = function (query) {
 
 exports.down = function (query) {
 	return Promise.resolve()
-		.then(query("ALTER TABLE user_media DROP type,\
-		                                    DROP file_size,\
-		                                    DROP width,\
-		                                    DROP height"));
+		.then(query("ALTER TABLE media DROP type,\
+		                               DROP file_size,\
+		                               DROP width,\
+		                               DROP height"));
 };

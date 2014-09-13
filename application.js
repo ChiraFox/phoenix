@@ -35,13 +35,8 @@ app.route('/login')
 app.route('/logout')
 	.post(promiseResponse.html(controllers.authentication.logout));
 
-app.get('/submissions/new', promiseResponse.html(function (request) {
-	if (request.query.submit) {
-		return controllers.submissions.createForm(request);
-	}
-
-	return controllers.submissions.uploadForm(request);
-}));
+app.get('/submissions/upload', promiseResponse.html(controllers.submissions.uploadForm));
+app.get('/submissions/new', promiseResponse.html(controllers.submissions.createForm));
 
 app.post('/submissions/', promiseResponse.html(controllers.submissions.create));
 app.post('/submissions/media/', promiseResponse.html(controllers.submissions.upload));

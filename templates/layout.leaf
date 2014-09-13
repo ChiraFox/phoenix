@@ -27,7 +27,7 @@ html
 				ul id: "main-navigation"
 					li a "Browse" href: "/submissions/"
 					li a "Search" href: "/submissions/search"
-					li a "Submit" href: "/submissions/new"
+					li a "Submit" href: "/submissions/upload"
 					li a "Community" href: "#" # TODO
 					li a "Support" href: "#" # TODO
 

@@ -6,22 +6,6 @@ append stylesheets
 	link rel: "stylesheet" href: "/stylesheets/media.css"
 
 replace content
-	ul id: "media-list"
-		for item of data.media
-			li class: "media-item"
-				img class: "media-thumbnail"
-					src: "/media/#{item.hash}"
-					height: "150"
-
-				h3 class: "media-filename"
-					"#{item.name}"
-
-				div class: "media-info"
-					if item.width
-						"#{item.width}×#{item.height}, "
-
-					"#{new ByteSize(item.file_size).toString(1)}"
-
 	form method: "POST" action: "/submissions/media/" enctype: "multipart/form-data"
 		% csrf();
 

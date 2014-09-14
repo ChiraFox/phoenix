@@ -18,10 +18,16 @@ if (cropInitialSource) {
 	var controls = document.createElement('div');
 	controls.className = 'cut-controls';
 
+	var offsetInput = document.createElement('input');
+	offsetInput.type = 'hidden';
+	offsetInput.name = 'thumbnail_offset';
+	offsetInput.value = '0,0';
+
 	var slider = document.createElement('input');
+	slider.name = 'thumbnail_zoom';
 	slider.className = 'cut-zoom-slider';
 	slider.type = 'range';
-	slider.min = cut.scaleMinimum.toFixed(2);
+	slider.min = Math.sqrt(cut.scaleMinimum).toFixed(2);
 	slider.max = 1;
 	slider.step = 0.01;
 	slider.value = 1;
@@ -35,14 +41,18 @@ if (cropInitialSource) {
 			zoom = 1;
 		}
 
-		cut.zoomTo(zoom);
+		cut.zoomTo(zoom * zoom);
 	};
 
 	slider.addEventListener('input', sliderChanged, false);
 	slider.addEventListener('change', sliderChanged, false);
 
 	cut.on('zoom', function (zoom) {
-		slider.value = zoom;
+		slider.value = Math.sqrt(zoom);
+	});
+
+	cut.on('move', function (offset) {
+		offsetInput.value = offset.x + ',' + offset.y;
 	});
 
 	var buttons = document.createElement('span');
@@ -68,6 +78,7 @@ if (cropInitialSource) {
 	buttons.appendChild(containButton);
 	buttons.appendChild(document.createTextNode(' '));
 	buttons.appendChild(coverButton);
+	controls.appendChild(offsetInput);
 	controls.appendChild(slider);
 	controls.appendChild(buttons);
 

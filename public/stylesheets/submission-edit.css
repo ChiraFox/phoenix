@@ -221,7 +221,7 @@
 	border-radius: 0.15em;
 	height: 0.3em;
 	outline: none;
-	transform: translateY(3em);
+	-moz-transform: translateY(3em);
 }
 
 #thumbnail .cut-zoom-slider::-moz-range-track {
@@ -229,14 +229,14 @@
 	border: 0.1em solid rgba(0, 0, 0, 0.5);
 	border-radius: 0.15em;
 	height: 0.3em;
-	transform: translateY(-3em);
+	-moz-transform: translateY(-3em);
 }
 
 #thumbnail .cut-zoom-slider::-moz-range-progress {
 	background-color: rgba(204, 204, 204, 0.3);
 	border-radius: 0.15em;
 	height: 0.3em;
-	transform: translateY(-3em);
+	-moz-transform: translateY(-3em);
 }
 
 #thumbnail .cut-zoom-slider:focus::-moz-range-progress {
@@ -246,7 +246,7 @@
 #thumbnail .cut-zoom-slider::-moz-range-thumb {
 	background: silver;
 	border: none;
-	transform: translateY(-3em);
+	-moz-transform: translateY(-3em);
 }
 
 #thumbnail .cut-zoom-slider::-webkit-slider-thumb {

@@ -93,6 +93,7 @@
 #submission-edit-form > section {
 	margin: 0 auto;
 	padding-top: 2.2em;
+	position: relative;
 	width: 40em;
 }
 
@@ -184,4 +185,75 @@
 #submission-edit-form .rating .description span {
 	display: inline-block;
 	vertical-align: middle;
+}
+
+#thumbnail .file-upload {
+	margin: 0.5em auto;
+}
+
+#thumbnail .cut-container {
+	height: 400px;
+}
+
+#thumbnail .cut-container .cut-crop-box {
+	outline: 0.1em solid silver;
+}
+
+#thumbnail .cut-controls {
+	left: 0;
+	margin: 0 auto;
+	margin-top: -100px;
+	opacity: 0.8;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	transition: opacity 0.3s ease;
+}
+
+#thumbnail .cut-controls:hover {
+	opacity: 0.95;
+}
+
+#thumbnail .cut-zoom-slider {
+	-webkit-appearance: none;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 0.15em;
+	height: 0.3em;
+	outline: none;
+	transform: translateY(3em);
+}
+
+#thumbnail .cut-zoom-slider::-moz-range-track {
+	background-color: rgba(0, 0, 0, 0.5);
+	border: 0.1em solid rgba(0, 0, 0, 0.5);
+	border-radius: 0.15em;
+	height: 0.3em;
+	transform: translateY(-3em);
+}
+
+#thumbnail .cut-zoom-slider::-moz-range-progress {
+	background-color: rgba(204, 204, 204, 0.3);
+	border-radius: 0.15em;
+	height: 0.3em;
+	transform: translateY(-3em);
+}
+
+#thumbnail .cut-zoom-slider:focus::-moz-range-progress {
+	background-color: rgba(204, 204, 204, 0.5);
+}
+
+#thumbnail .cut-zoom-slider::-moz-range-thumb {
+	background: silver;
+	border: none;
+	transform: translateY(-3em);
+}
+
+#thumbnail .cut-zoom-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	background: silver;
+	border: none;
+	border-radius: 1em;
+	height: 1em;
+	width: 1em;
 }

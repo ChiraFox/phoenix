@@ -249,7 +249,7 @@ var Cut = (function () {
 			'translate(' +
 				(-this.imageWidth / 2 + this.offsetX).toFixed(1) + 'px, ' +
 				(-this.imageHeight / 2 + this.offsetY).toFixed(1) + 'px) ' +
-			'scale(' + this.zoom.toFixed(2) + ')';
+			'scale(' + this.zoom + ')';
 
 		this.imageElement.style.webkitTransform = imageTransform;
 		this.imageElement.style.msTransform = imageTransform;

@@ -3,11 +3,13 @@ extends layout
 replace title "Edit submission"
 
 append stylesheets
+	link rel: "stylesheet" href: "/vendor/cut/cut.css"
 	link rel: "stylesheet" href: "/stylesheets/submission-edit.css"
 
 replace content
 	form id: "submission-edit-form" method: "POST" action: "/submissions/" enctype: "multipart/form-data"
 		% csrf();
+		% var isImage = ['png', 'jpeg', 'gif', 'tiff'].indexOf(data.media.type) !== -1;
 
 		input
 			type: "hidden"
@@ -24,7 +26,7 @@ replace content
 				" " button "Submit" class: "button submit primary" name: "do" value: "submit"
 
 		div id: "preview"
-			if ['png', 'jpeg', 'gif', 'tiff'].indexOf(data.media.type) !== -1
+			if isImage
 				img src: "/media/#{data.media.hash}.#{data.media.type}" alt: "Submission preview"
 			else
 				p "No preview available."
@@ -82,6 +84,9 @@ replace content
 						span "Sexually explicit imagery, or imagery otherwise geared towards adult audiences."
 
 		section id: "thumbnail"
+			if isImage
+				data-crop-initial-source: "/media/#{data.media.hash}.#{data.media.type}"
+
 			h3 "Thumbnail"
 
 			label class: "file-upload"
@@ -182,3 +187,6 @@ replace content
 		footer class: "form-actions"
 			" " button "Save" class: "button submit" name: "do" value: "save"
 			" " button "Submit" class: "button submit primary" name: "do" value: "submit"
+
+		script src: "/vendor/cut/cut.js"
+		script src: "/scripts/submission-edit.js"

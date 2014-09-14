@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('lodash');
 var Promise = require('bluebird');
 var crypto = require('crypto');
 var fs = require('fs');
@@ -16,14 +17,8 @@ var EMPTY_UPLOAD = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852
 var temporaryDirectory = path.join(__dirname, '../', config.temporaryDirectory);
 var mediaDirectory = path.join(__dirname, '../public/media/');
 
-function const_(obj) {
-	return function () {
-		return obj;
-	};
-}
-
-function autoThumbnail(imageBuffer) {
-	return sharp(imageBuffer).resize(300, 300).max().png();
+function autoThumbnailer() {
+	return sharp().resize(300, 300).max();
 }
 
 function associateWithSubmission(mediaId, submissionId) {
@@ -49,7 +44,7 @@ function upload(uploadStream) {
 				if (!identifiedType) {
 					resolve(
 						fs.unlinkAsync(temporaryPath).then(
-							const_(Promise.reject(new Error('Unrecognized file type.')))
+							_.constant(Promise.reject(new Error('Unrecognized file type.')))
 						)
 					);
 
@@ -60,9 +55,9 @@ function upload(uploadStream) {
 					fs.renameAsync(temporaryPath, path.join(mediaDirectory, hexDigest + '.' + identifiedType))
 						.then(function () {
 							return db.query('INSERT INTO media (hash, type) VALUES ($1, $2)', [hexDigest, identifiedType])
-								.catch(const_());
+								.catch(_.noop);
 						})
-						.then(const_(hexDigest))
+						.then(_.constant(hexDigest))
 				);
 			});
 		});
@@ -85,7 +80,7 @@ function forRequest(request) {
 }
 
 exports.EMPTY_UPLOAD = EMPTY_UPLOAD;
-exports.autoThumbnail = autoThumbnail;
+exports.autoThumbnailer = autoThumbnailer;
 exports.upload = upload;
 exports.associateWithSubmission = associateWithSubmission;
 exports.byHash = byHash;

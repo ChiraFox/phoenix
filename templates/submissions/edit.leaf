@@ -94,6 +94,7 @@ replace content
 					"Upload custom thumbnail "
 
 				input
+					id: "thumbnail-upload"
 					type: "file"
 					name: "thumbnail"
 					accept: "image/*"

@@ -1,3 +1,5 @@
+/* global Cut */
+
 'use strict';
 
 var thumbnailSection = document.getElementById('thumbnail');

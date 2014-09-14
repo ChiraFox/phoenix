@@ -6,6 +6,7 @@ var fs = require('fs');
 var path = require('path');
 var sharp = require('sharp');
 var db = require('../lib/db');
+var IdentifyStream = require('../lib/identify-stream').IdentifyStream;
 var config = require('../config');
 
 Promise.promisifyAll(crypto);
@@ -34,18 +35,31 @@ function upload(uploadStream) {
 		var hash = crypto.createHash('sha256');
 		var temporaryPath = path.join(temporaryDirectory, bytes.toString('base64').replace(/\//g, '-'));
 		var temporaryFileStream = fs.createWriteStream(temporaryPath, { flags: 'wx', mode: 6 << 6 });
+		var identifyStream = new IdentifyStream();
 
 		uploadStream.pipe(hash);
+		uploadStream.pipe(identifyStream);
 		uploadStream.pipe(temporaryFileStream);
 
 		return new Promise(function (resolve) {
 			uploadStream.on('end', function () {
 				var hexDigest = hash.read().toString('hex');
+				var identifiedType = identifyStream.identifiedType;
+
+				if (!identifiedType) {
+					resolve(
+						fs.unlinkAsync(temporaryPath).then(
+							const_(Promise.reject(new Error('Unrecognized file type.')))
+						)
+					);
+
+					return;
+				}
 
 				resolve(
-					fs.renameAsync(temporaryPath, path.join(mediaDirectory, hexDigest))
+					fs.renameAsync(temporaryPath, path.join(mediaDirectory, hexDigest + '.' + identifiedType))
 						.then(function () {
-							return db.query('INSERT INTO media (hash, type) VALUES ($1, $2)', [hexDigest, ''])
+							return db.query('INSERT INTO media (hash, type) VALUES ($1, $2)', [hexDigest, identifiedType])
 								.catch(const_());
 						})
 						.then(const_(hexDigest))

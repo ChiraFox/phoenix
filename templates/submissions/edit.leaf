@@ -9,11 +9,10 @@ replace content
 	form id: "submission-edit-form" method: "POST" action: "/submissions/" enctype: "multipart/form-data"
 		% csrf();
 
-		for id of data.media
-			input
-				type: "hidden"
-				name: "media"
-				value: "#{id}"
+		input
+			type: "hidden"
+			name: "media"
+			value: "#{data.media.hash}"
 
 		header id: "submission-edit-info"
 			div class: "submission-type"
@@ -25,6 +24,10 @@ replace content
 				" " button "Submit" class: "button submit primary" name: "do" value: "submit"
 
 		div id: "preview"
+			if ['png', 'jpeg', 'gif', 'tiff'].indexOf(data.media.type) !== -1
+				img src: "/media/#{data.media.hash}.#{data.media.type}" alt: "Submission preview"
+			else
+				p "No preview available."
 
 		section id: "general"
 			h3 "General Data"

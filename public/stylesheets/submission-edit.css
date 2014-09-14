@@ -38,7 +38,13 @@
 #preview {
 	background-color: #151719;
 	order: -1;
+	text-align: center;
 	padding: 1em;
+}
+
+#preview img {
+	max-height: 20em;
+	max-width: 100%;
 }
 
 #submission-edit-form .submission-section-tabs {

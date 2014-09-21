@@ -46,7 +46,7 @@ clean:
 	rm -f ca.key ca.crt $(SITE_NAME).key $(SITE_NAME).csr $(SITE_NAME).crt nginx.conf phoenix
 
 .PHONY: install
-install: $(SITE_NAME).key $(SITE_NAME).crt nginx.conf
+install: $(SITE_NAME).key $(SITE_NAME).crt nginx.conf phoenix
 	@! test -z $(NGINX_CONF_DIR) || ! echo 'NGINX_CONF_DIR is required.'
 
 	test -d $(NGINX_CONF_DIR)/../sites-available || mkdir $(NGINX_CONF_DIR)/../sites-available

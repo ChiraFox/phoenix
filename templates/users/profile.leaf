@@ -8,25 +8,125 @@ replace title
 
 replace content
 	% var user = data.user;
+	% user.fullName = "Tin Foil";
+	% user.pageViews = "12,237";
+	% user.artistType = "Art Commisioner";
+	% user.mood = "Successful";
 
-	dl id: "user-info"
-		dt "Username"
-		dd "#{user.username}"
 
-		dt "Registered"
-		dd "#{user.registered}"
+	nav id: "sub-nav"
+		ul
+			li a "User Page" .selected
+			li a "Gallery" href: "#"
+			li a "Scraps" href: "#"
+			li a "Journals" href: "#"
+			li a "Commission" href: "#"
+			li a "Info" href: "#"
+			li a "Favorites" href: "#"
+		ul
+			li a "Stats" href: "#"
+			li a "Settings" href: "#"
 
-		dt "Full name"
-		dd "#{user.full_name}"
+	section id: "user-stats"
+		span .avatar.large.pull-left style: "background-image: url('http://placekitten.com/g/100/101');"
+		div .info
+			h2 "#{user.username}"
+			dl
+				dt "Full Name:"
+				dd "#{user.fullName}"
+				dt "Registered Since:"
+				dd .new-line "Tue Jun 17 2014 03:03"
+			
+			dl .to-the-right
+				dt "Pageviews"
+				dd "#{user.pageViewCount}"
+				dt "Artist type"
+				dd "#{user.artistType}"
+				dt "Mood"
+				dd "#{user.mood}"
 
-		dt "Artist type"
-		dd "#{user.artist_type}"
+		div id: "user-actions"
+			div
+				div "Streaming!" .streaming
+					a "Get Info" href: "#"
+			a "Send Note" .button href: "#"
+			a "+Watch" .button.primary href: "#"
 
-		dt "Mood"
-		dd "#{user.current_mood}"
+	section id: "user-gallery"
+		nav 
+			ul 
+				li a "Gallery" href: "#" .selected id: "ug-tab-gallery"
+				li a "Favorites" href: "#" id: "ug-tab-favorites"
+			ul
+				li a "Featured" href: "#" id: "ug-tab-gallery-features"
+				li a "My Comic" href: "#" id: "ug-tab-gallery-my_comic"
+				li a "Writing" href: "#" id: "ug-tab-gallery-writing"
+				li a "Scraps" href: "#" id: "ug-tab-gallery-Scraps"
+				li a "Featured" href: "#" id: "ug-tab-gallery-features"
+				li a "My Comic" href: "#" id: "ug-tab-gallery-my_comic"
+				li a "Writing" href: "#" id: "ug-tab-gallery-writing"
+				li a "Scraps" href: "#" .selected id: "ug-tab-gallery-Scraps"
+				li a "Featured" href: "#" id: "ug-tab-gallery-features"
+				li a "My Comic" href: "#" id: "ug-tab-gallery-my_comic"
+				li a "Writing" href: "#" id: "ug-tab-gallery-writing"
+				li a "Scraps" href: "#" id: "ug-tab-gallery-Scraps"
+				#TODO: Figure out the naming convention... We may want to use gallery id instead as the user can set what ever galleries they want here....
 
-		dt "Profile views"
-		dd "#{user.views}"
+		div .preview
+			a .preview style: "background-image: url('http://placekitten.com/g/330/400');"
+			a "Image Title Here" .caption
+			span "22 days ago" class: "post-date"
+		div .image-grid
+			ul .float-wrap
+				for x, i of [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0]
+					li
+						a .thumbnail.large href: "#" style: "background-image: url('http://placekitten.com/g/100/101');"
+			div .info
+				span "24 items total" .total
+				a "Go To Scraps" .button
 
-	div id: "user-profile-text"
-		!"#{bbcode(user.profile_text)}"
+	section id: "user-profile"
+		div .info
+			h3 "Profile Info"
+			#PLACEHOLDER for: !"#{bbcode(user.profile_text)}"
+			p "Kitten Ipsum sleeping in the sink, size loves Baxter family stretching classy kittens rescue comfortable. Boy size home roll lounging yoda reddit photobomb chase the red dot best Zooey home odd neighbors give me fish vicious mix basket, ambush water cat her tongue he. Kitten Jinx best buddy sandi cat cat, toys norwegian forest cat first smokey lady flying year cat her stuck in a tree spoon napping. Somebody dang loves smokey box passive friend cuddling cat smile she cat watching short hair sleep on your keyboard cat standing comfortable eyes puss and boots cat persian. He, cats home eyes sleepy cat eat! Sucked this kitten 9 socks sleeping in the sink her rip caught cats peaceful go, me tux purses cats sleeping in the sink."
+
+			h3 "Profile ID"
+			span .preview.profile-id style: "background-image: url('http://placekitten.com/g/330/400');"
+
+			h3 "Other Information"
+
+			dl.social-links
+				dt a href: "#" span.social.social-website.with-label "Personal Website"
+				dd a "mywebsite.webloze.com" href: "#"
+				dt a href: "#" span.social.social-twitter.with-label "Twitter"
+				dd a "Tweet_Me" href: "#"
+				dt a href: "#" span.social.social-yahoo.with-label "Yahoo"
+				dd a "Y!_Roolz!" href: "#"
+
+			h3 "Latest Journal Entry"
+			div .journal
+				h4 "Hi There"
+				a .button.primary.read-more "Read More"
+				p "Lorem ipsum..."
+				#div .stats
+				#	span .post-date "6 months ago"
+				#	span .comment-count "283 comments" 
+
+		div .shouts
+			h3 "Leave a Shout!"
+			div .leave-a-shout
+				a .avatar.large.pull-left style: "background-image: url('http://placekitten.com/g/100/101')"
+				div
+					textarea .text
+					button .button "Post Shout"
+
+			ul .shouts
+				for x, i of [1,2,3,4,5,6,7,8]
+					li
+						a .avatar.large.pull-left style: "background-image: url('http://placekitten.com/g/100/101')"
+						div
+							h5 a "Username" 
+							span "A day ago"
+							div .post
+								p "Lorem ipsum..."

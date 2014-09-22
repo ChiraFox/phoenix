@@ -9,7 +9,7 @@ replace title
 replace content
 	% var user = data.user;
 	% user.fullName = "Tin Foil";
-	% user.pageViews = "12,237";
+	% user.pageViews = 12237;
 	% user.artistType = "Art Commisioner";
 	% user.mood = "Successful";
 
@@ -27,9 +27,11 @@ replace content
 			li a "Settings" href: "#"
 
 	section id: "user-stats"
-		span .avatar.large.pull-left style: "background-image: url('http://placekitten.com/g/100/101');"
-		div .info
+		img .avatar.large src: "http://placekitten.com/g/100/101"
+
+		div id: "user-info"
 			h2 "#{user.username}"
+
 			dl
 				dt "Full Name:"
 				dd "#{user.fullName}"
@@ -38,7 +40,7 @@ replace content
 
 			dl .to-the-right
 				dt "Pageviews"
-				dd "#{user.pageViewCount}"
+				dd "#{formatInteger(user.pageViews)}"
 				dt "Artist type"
 				dd "#{user.artistType}"
 				dt "Mood"
@@ -54,44 +56,61 @@ replace content
 	section id: "user-gallery"
 		nav
 			ul
-				li a "Gallery" href: "#" .selected id: "ug-tab-gallery"
-				li a "Favorites" href: "#" id: "ug-tab-favorites"
+				li a "Gallery" href: "#" .selected
+				li a "Favorites" href: "#"
 			ul
-				li a "Featured" href: "#" id: "ug-tab-gallery-features"
-				li a "My Comic" href: "#" id: "ug-tab-gallery-my_comic"
-				li a "Writing" href: "#" id: "ug-tab-gallery-writing"
-				li a "Scraps" href: "#" id: "ug-tab-gallery-Scraps"
-				li a "Featured" href: "#" id: "ug-tab-gallery-features"
-				li a "My Comic" href: "#" id: "ug-tab-gallery-my_comic"
-				li a "Writing" href: "#" id: "ug-tab-gallery-writing"
-				li a "Scraps" href: "#" .selected id: "ug-tab-gallery-Scraps"
-				li a "Featured" href: "#" id: "ug-tab-gallery-features"
-				li a "My Comic" href: "#" id: "ug-tab-gallery-my_comic"
-				li a "Writing" href: "#" id: "ug-tab-gallery-writing"
-				li a "Scraps" href: "#" id: "ug-tab-gallery-Scraps"
-				#TODO: Figure out the naming convention... We may want to use gallery id instead as the user can set what ever galleries they want here....
+				li a "Featured" href: "#"
+				li a "My Comic" href: "#"
+				li a "Writing" href: "#"
+				li a "Scraps" href: "#"
+				li a "Featured" href: "#"
+				li a "My Comic" href: "#"
+				li a "Writing" href: "#"
+				li a "Scraps" href: "#" .selected
+				li a "Featured" href: "#"
+				li a "My Comic" href: "#"
+				li a "Writing" href: "#"
+				li a "Scraps" href: "#"
 
-		div .preview
-			a .preview style: "background-image: url('http://placekitten.com/g/330/400');"
-			a "Image Title Here" .caption
-			span "22 days ago" class: "post-date"
+		div id: "preview"
+			a href: "#"
+				figure
+					img id: "preview-image" src: "http://placekitten.com/g/330/400"
+
+					figcaption
+						span class: "caption" "Image Title Here"
+						time .post-date "22 days ago"
+
 		div .image-grid
 			ul .float-wrap
-				for x, i of [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0]
-					li
-						a .thumbnail.large href: "#" style: "background-image: url('http://placekitten.com/g/100/101');"
+				% for (var i = 0; i < 20; i++)
+					li a href: "#"
+						img .thumbnail.large src: "http://placekitten.com/g/100/101"
+
 			div .info
 				span "24 items total" .total
 				a "Go To Scraps" .button
 
 	section id: "user-profile"
-		div .info
+		div id: "profile-info"
 			h3 "Profile Info"
 
-			p "Kitten Ipsum sleeping in the sink, size loves Baxter family stretching classy kittens rescue comfortable. Boy size home roll lounging yoda reddit photobomb chase the red dot best Zooey home odd neighbors give me fish vicious mix basket, ambush water cat her tongue he. Kitten Jinx best buddy sandi cat cat, toys norwegian forest cat first smokey lady flying year cat her stuck in a tree spoon napping. Somebody dang loves smokey box passive friend cuddling cat smile she cat watching short hair sleep on your keyboard cat standing comfortable eyes puss and boots cat persian. He, cats home eyes sleepy cat eat! Sucked this kitten 9 socks sleeping in the sink her rip caught cats peaceful go, me tux purses cats sleeping in the sink."
+			p "Kitten Ipsum sleeping in the sink, size loves Baxter family
+			stretching classy kittens rescue comfortable. Boy size home roll
+			lounging yoda reddit photobomb chase the red dot best Zooey home
+			odd neighbors give me fish vicious mix basket, ambush water cat her
+			tongue he. Kitten Jinx best buddy sandi cat cat, toys norwegian
+			forest cat first smokey lady flying year cat her stuck in a tree
+			spoon napping. Somebody dang loves smokey box passive friend
+			cuddling cat smile she cat watching short hair sleep on your
+			keyboard cat standing comfortable eyes puss and boots cat persian.
+			He, cats home eyes sleepy cat eat! Sucked this kitten 9 socks
+			sleeping in the sink her rip caught cats peaceful go, me tux purses
+			cats sleeping in the sink."
 
 			h3 "Profile ID"
-			span .preview.profile-id style: "background-image: url('http://placekitten.com/g/330/400');"
+
+			img .preview.profile-id src: "http://placekitten.com/g/330/400"
 
 			h3 "Other Information"
 
@@ -104,25 +123,29 @@ replace content
 				dd a "Y!_Roolz!" href: "#"
 
 			h3 "Latest Journal Entry"
+
 			div .journal
 				h4 "Hi There"
 				a .button.primary.read-more "Read More"
 				p "Lorem ipsum..."
 
-		div .shouts
+		div id: "shouts"
 			h3 "Leave a Shout!"
+
 			div .leave-a-shout
-				a .avatar.large.pull-left style: "background-image: url('http://placekitten.com/g/100/101')"
+				a .avatar.large style: "background-image: url('http://placekitten.com/g/100/101')"
+
 				div
 					textarea .text
 					button .button "Post Shout"
 
-			ul .shouts
-				for x, i of [1,2,3,4,5,6,7,8]
-					li
-						a .avatar.large.pull-left style: "background-image: url('http://placekitten.com/g/100/101')"
+			ul
+				% for (var i = 0; i < 8; i++)
+					li .shout
+						a .avatar.large style: "background-image: url('http://placekitten.com/g/100/101')"
+
 						div
 							h5 a "Username"
-							span "A day ago"
-							div .post
+							time .post-date "A day ago"
+							div .shout-body
 								p "Lorem ipsum..."

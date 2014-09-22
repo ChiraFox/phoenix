@@ -1,46 +1,46 @@
 /* Nav Overrides
 -------------------------------*/
-nav#sub-nav {
+#sub-nav {
 	background-color: #323539;
 }
 
-nav#sub-nav a.selected {
+#sub-nav a.selected {
 	background-color: #202225;
 }
 
-section#user-gallery nav a.selected {
+#user-gallery nav a.selected {
 	background-color: #323539;
 	border-radius: 6px;
 }
 
-section#user-stats {
+#user-stats {
 	background-color: #202225;
 	display: flex;
 	padding: 10px;
 }
 
-section#user-stats div.info {
+#user-info {
+	background-color: #202225;
 	display: flex;
 	flex: 1;
 	flex-flow: row wrap;
 	padding: 0 10px;
-	background-color: #202225;
 }
 
-section#user-stats div.info h2 {
+#user-info h2 {
 	flex: 1 100%;
 	margin: 5px 0 5px 10px;
 }
 
-section#user-stats div.info dl {
+#user-info dl {
 	flex: 0 1 300px;
 }
 
-section#user-stats div#user-actions {
+#user-actions {
 	text-align: right;
 }
 
-section#user-stats div#user-actions .streaming {
+#user-actions .streaming {
 	background-color: #191a1c;
 	display: inline-block;
 	line-height: 1.5em;
@@ -48,137 +48,141 @@ section#user-stats div#user-actions .streaming {
 	margin-bottom: 10px;
 }
 
-section#user-stats div#user-actions .streaming:after {
-	content: "\A";
+#user-actions .streaming::after {
+	content: '\A';
 	white-space: pre;
 }
 
-section#user-stats div#user-actions .streaming:before {
+#user-actions .streaming::before {
 	color: #0f0;
-	content: "●";
+	content: '●';
 	font-size: 1.2em;
 	margin-right: 5px;
 }
 
-section#user-stats div#user-actions .streaming a {
+#user-actions .streaming a {
 	color: #a4a4a4;
 	margin-left: 20px;
 }
 
-section#user-stats div#user-actions .button {
+#user-actions .button {
 	margin-left: 10px;
 }
 
-section#user-gallery {
+#user-gallery {
 	background-color: #3F4347;
 	display: flex;
 	flex-flow: row wrap;
 	padding: 12px;
 }
 
-section#user-gallery nav {
+#user-gallery nav {
 	flex: 1 100%;
 	margin-bottom: 14px;
 }
 
-section#user-gallery nav ul:first-of-type {
+#user-gallery nav ul:first-of-type {
 	margin-right: 355px;
 }
 
-section#user-gallery div.preview {
+#preview {
 	padding: 0 25px;
 	text-align: center;
 	flex: 0 0 500px;
 }
 
-section#user-gallery div.preview a.preview {
+#preview figure {
+	margin: 0;
+}
+
+#preview-image {
 	height: 350px;
 	width: 500px;
 }
 
-section#user-gallery div.preview .caption {
+#preview .caption {
 	font-size: 1.1em;
 	font-weight: bold;
 }
 
-section#user-gallery div.preview .post-date {
+#preview .post-date {
 	display: block;
 	font-size: 0.8em;
 }
 
-section#user-gallery div.image-grid {
+#user-gallery .image-grid {
 	flex: 1;
 }
 
-section#user-gallery div.image-grid ul {
+#user-gallery .image-grid ul {
 	height: 350px;
 	margin-bottom: 10px;
 	overflow: hidden;
 }
 
-section#user-gallery div.image-grid li {
+#user-gallery .image-grid li {
 	float: left;
 	margin: 0 10px 10px 0;
 }
 
-section#user-gallery div.image-grid .info {
+#user-gallery .image-grid .info {
 	clear: left;
 	padding: 0 1.2em;
 	text-align: right;
 }
 
-section#user-gallery div.image-grid .info a.button {
+#user-gallery .image-grid .info .button {
 	margin-left: 10px;
 }
 
-section#user-profile {
+#user-profile {
 	display: flex;
 	padding: 12px;
 }
 
-section#user-profile span.profile-id {
+#user-profile .profile-id {
 	display: block;
 	margin: 0 auto;
 }
 
-section#user-profile div.info span.preview {
+#profile-info .preview {
 	height: 460px;
 	width: 460px;
 }
 
-section#user-profile div.info {
+#profile-info {
 	flex: 1;
 	margin: 0 24px;
 }
 
-section#user-profile dl.social-links {
+#profile-info .social-links {
 	line-height: 32px;
 }
 
-section#user-profile dl.social-links dt {
+#profile-info .social-links dt {
 	width: 250px;
 }
 
-section#user-profile div.shouts {
+#shouts {
 	flex: 1;
 	margin: 0 24px;
 }
 
-section#user-profile div.shouts div.leave-a-shout {
+#shouts .leave-a-shout {
 	display: flex;
 }
 
-section#user-profile div.shouts div.leave-a-shout > a {
+#shouts .leave-a-shout > a {
 	margin-right: 10px;
 }
 
-section#user-profile div.shouts div.leave-a-shout > div {
+#shouts .leave-a-shout > div {
 	flex: 1;
 	position: relative;
 	margin-left: 10px;
 }
 
-section#user-profile div.shouts div.leave-a-shout > div:after {
+#shouts .leave-a-shout > div::after {
 	top: 16px;
 	left: -10px;
 	bottom: auto;
@@ -191,49 +195,49 @@ section#user-profile div.shouts div.leave-a-shout > div:after {
 	width: 0;
 }
 
-section#user-profile div.shouts div.leave-a-shout textarea {
+#shouts .leave-a-shout textarea {
 	height: 100px;
 	width: 100%;
 	border-radius: 6px;
 }
 
-section#user-profile div.shouts div.leave-a-shout button {
+#shouts .leave-a-shout button {
 	clear: both;
 	float: right;
 	margin: 10px 0;
 }
 
-section#user-profile div.shouts ul.shouts > li {
+#shouts .shout {
 	margin-bottom: 10px;
 	display: flex;
 }
 
-section#user-profile div.shouts ul.shouts > li > a.avatar {
+#shouts .shout > .avatar {
 	margin-right: 10px;
 }
 
-section#user-profile div.shouts ul.shouts > li > div {
+#shouts .shout > div {
 	flex: 1;
 	display: flex;
 	flex-flow: row wrap;
 	align-content: flex-start;
 }
 
-section#user-profile div.shouts ul.shouts h5 {
+#shouts .shout h5 {
 	padding: 0;
 	margin: 0 0 5px 10px;
 	font-size: 1em;
 	font-weight: normal;
 }
 
-section#user-profile div.shouts ul.shouts span {
+#shouts .shout .post-date {
 	flex: 1;
 	margin-left: 10px;
 	font-size: .8em;
 	text-align: right;
 }
 
-section#user-profile div.shouts ul.shouts div.post {
+#shouts .shout-body {
 	flex: 1 100%;
 	width: 100%;
 	margin-left: 10px;
@@ -243,11 +247,11 @@ section#user-profile div.shouts ul.shouts div.post {
 	position: relative;
 }
 
-section#user-profile div.shouts ul.shouts div.post p {
+#shouts .shout-body p {
 	margin: 0 0 5px;
 }
 
-section#user-profile div.shouts ul.shouts div.post:after {
+#shouts .shout-body::after {
 	border-color: transparent #4f545a;
 	border-style: solid;
 	border-width: 5px 10px 5px 0;
@@ -260,18 +264,18 @@ section#user-profile div.shouts ul.shouts div.post:after {
 	width: 0;
 }
 
-section#user-profile div.info div.journal {
+#profile-info .journal {
 	background-color: #4f545a;
 	border-radius: 6px;
 	padding: 10px;
 	position: relative;
 }
 
-section#user-profile div.info div.journal h4 {
+#profile-info .journal h4 {
 	margin: 9px 0;
 }
 
-section#user-profile div.info div.journal .read-more {
+#profile-info .journal .read-more {
 	position: absolute;
 	top: 10px;
 	right: 10px;

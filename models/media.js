@@ -39,6 +39,12 @@ function upload(uploadStream) {
 		return new Promise(function (resolve) {
 			uploadStream.on('end', function () {
 				var hexDigest = hash.read().toString('hex');
+
+				if (hexDigest === EMPTY_UPLOAD) {
+					resolve(null);
+					return;
+				}
+
 				var identifiedType = identifyStream.identifiedType;
 
 				if (!identifiedType) {

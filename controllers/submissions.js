@@ -34,7 +34,7 @@ var upload = permission.require('submit', function upload(request) {
 
 			form.on('finish', function () {
 				resolve(Promise.resolve(uploadHash).then(function (hexDigest) {
-					if (!hexDigest || hexDigest === media.EMPTY_UPLOAD) {
+					if (!hexDigest) {
 						return new Redirect('/submissions/upload');
 					}
 
@@ -48,31 +48,34 @@ var upload = permission.require('submit', function upload(request) {
 var create = permission.require('submit', function create(request) {
 	return formSession.formFiles(request).then(function (form) {
 		return new Promise(function (resolve) {
-			var thumbnail = null;
+			var thumbnailHash = null;
 
-			form.on('file', function (name, file) {
-				var stream = file.stream;
-
-				if (name === 'thumbnail' && !thumbnail) {
-					var transformer = media.autoThumbnailer();
-					thumbnail = media.upload(stream.pipe(transformer));
+			form.on('file', function processFile(name, file) {
+				if (name !== 'thumbnail') {
+					file.stream.resume();
 					return;
 				}
 
-				stream.resume();
+				form.removeListener('file', processFile);
+
+				thumbnailHash = media.upload(file.stream);
 			});
 
 			form.on('finish', function () {
 				resolve(media.byHash(form.fields.media).then(
 					function (submitMedia) {
-						return Promise.resolve(thumbnail).then(media.byHash).then(function (thumbnailMedia) {
-							return submissions.create({
-								owner: request.user.id,
-								thumbnail: thumbnailMedia.id,
-								title: form.fields.title,
-								description: form.fields.description,
-								rating: form.fields.rating,
-								tags: form.fields.tags
+						return Promise.resolve(thumbnailHash).then(function (hexDigest) {
+							var thumbnail = hexDigest ? media.byHash(hexDigest) : Promise.resolve(null);
+
+							return thumbnail.then(function (thumbnailMedia) {
+								return submissions.create({
+									owner: request.user.id,
+									thumbnail: thumbnailMedia && thumbnailMedia.id,
+									title: form.fields.title,
+									description: form.fields.description,
+									rating: form.fields.rating,
+									tags: form.fields.tags
+								});
 							});
 						}).then(function (submissionId) {
 							var titleSlug = slug.slugFor(form.fields.title);

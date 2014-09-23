@@ -42,18 +42,16 @@ function create(info) {
 		return Promise.reject(new Error('rating should be one of “general”, “mature”, “adult”.'));
 	}
 
-	return db.useClient().then(function (client) {
-		return client.query('BEGIN').then(function () {
-			return client.query(
+	return Promise.using(db.useClient(), function (client) {
+		return db.transaction(client, function () {
+			return client.queryAsync(
 				"INSERT INTO submissions (owner, title, description, rating, thumbnail, posted) VALUES ($1, $2, $3, $4, $5, NOW() AT TIME ZONE 'UTC') RETURNING id",
 				[owner, title, description, rating, thumbnail]
 			).then(function (result) {
 				var submissionId = result.rows[0].id;
 
-				var tagsReady;
-
-				if (tagNames.length) {
-					tagsReady = client.query('SELECT id, name FROM tags WHERE name = ANY ($1)', [tagNames]).then(function (result) {
+				var tagsReady = tagNames.length === 0 ? Promise.resolve() :
+					client.queryAsync('SELECT id, name FROM tags WHERE name = ANY ($1)', [tagNames]).then(function (result) {
 						var existingTags = result.rows;
 
 						existingTags.sort(function (a, b) {
@@ -88,26 +86,13 @@ function create(info) {
 
 							params.unshift(submissionId);
 
-							return client.query('INSERT INTO submission_tags (submission, tag) VALUES ' + placeholders, params);
+							return client.queryAsync('INSERT INTO submission_tags (submission, tag) VALUES ' + placeholders, params);
 						});
 					});
-				} else {
-					tagsReady = Promise.resolve();
-				}
 
 				return tagsReady.then(function () {
-					return client.query('COMMIT');
-				}).then(function () {
-					client.done();
 					return submissionId;
 				});
-			}).catch(function (error) {
-				function failWithOriginalError() {
-					client.done();
-					return Promise.reject(error);
-				}
-
-				return client.query('ROLLBACK').then(failWithOriginalError, failWithOriginalError);
 			});
 		});
 	});

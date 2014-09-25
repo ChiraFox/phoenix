@@ -11,4 +11,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.provision 'file', source: 'vagrant/pg_hba.conf', destination: 'pg_hba.conf'
 	config.vm.provision 'file', source: 'vagrant/phoenix', destination: 'phoenix'
 	config.vm.provision 'shell', path: 'vagrant/setup.sh', privileged: false
+
+	config.vm.post_up_message = <<END
+Done! The server can be started using:
+
+    $ vagrant ssh -c phoenix
+
+and will then be available at http://localhost:2200/.
+END
 end

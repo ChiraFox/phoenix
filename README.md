@@ -12,6 +12,8 @@ redesign of code, user interface, and database.
  - [GraphicsMagick]
  - [libvips]
  - [GnuTLS]
+   \(3.x preferred; remove `nc_permit_dns` line from `sample/ca.cfg` otherwise)
+ - [Python 2]
 
 
 ## Configuration
@@ -50,3 +52,4 @@ the database can be filled using `node models/add-test-data`.
   [GraphicsMagick]: http://www.graphicsmagick.org/
   [libvips]: https://github.com/jcupitt/libvips
   [GnuTLS]: http://www.gnutls.org/
+  [Python 2]: https://www.python.org/

@@ -1,7 +1,5 @@
 'use strict';
 
-/* eslint no-return-assign: 0 */
-
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
@@ -139,6 +137,8 @@ function beginWatching() {
 		new TreeWatcher('.', ignoreList).on('change', limit(changed, 100));
 
 		spawnServer();
+
+		console.log('The server has started; press Control+C to stop.');
 	});
 }
 

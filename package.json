@@ -11,7 +11,7 @@
 		"redis": "~0.12.1",
 		"sharp": "~0.6.2",
 		"busboy": "~0.2.9",
-		"express": "~4.9.4",
+		"express": "~4.9.5",
 		"razorleaf": "~2.3.1",
 		"lodash": "~2.4.1",
 		"bcrypt": "~0.8.0",

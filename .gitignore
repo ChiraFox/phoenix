@@ -1,4 +1,5 @@
-node_modules
-tmp
-public/media
-config.json
+/.vagrant
+/node_modules
+/public/media/
+/tmp
+/config.json

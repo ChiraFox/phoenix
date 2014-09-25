@@ -1,4 +1,6 @@
 .git
+.vagrant
 node_modules
-tmp
 public
+tmp
+vagrant

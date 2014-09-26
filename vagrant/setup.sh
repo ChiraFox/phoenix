@@ -34,6 +34,7 @@ sudo chmod +x /usr/bin/phoenix
 
 cd /vagrant/
 npm install
+sudo npm install -g forever
 nodejs models/migrate
 sed -i "s|\"key\": null|\"key\": \"$(dd if=/dev/urandom bs=64 count=1 | base64 -w 0)\"|" config.json
 echo username | nodejs models/add-test-data

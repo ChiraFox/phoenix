@@ -2,4 +2,4 @@
 set -e
 
 cd /vagrant
-nodejs develop
+forever -w server.js

@@ -1,5 +1,6 @@
+/.git
 /.vagrant
 /node_modules
-/public/media
+/public
 /tmp
-/config.json
+/vagrant

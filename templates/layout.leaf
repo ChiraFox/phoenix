@@ -19,14 +19,14 @@ html
 		block stylesheets
 			link rel: "stylesheet" href: "/stylesheets/default.css"
 
-		link rel: "shortcut icon" href: "/images/favicon.ico"
+		link rel: "icon" href: "/images/favicon.ico"
 
 	body
 		header id: "header"
 			nav id: "navigation"
 				ul id: "main-navigation"
 					li a "Browse" href: "/submissions/"
-					li a "Search" href: "/submissions/search"
+					li a "Search" href: "/submissions/search" rel: "search"
 					li a "Submit" href: "/submissions/upload"
 					li a "Community" href: "#" # TODO
 					li a "Support" href: "#" # TODO

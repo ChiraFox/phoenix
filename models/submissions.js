@@ -1,15 +1,18 @@
 'use strict';
 
+var _ = require('lodash');
 var Promise = require('bluebird');
 var unorm = require('unorm');
 var db = require('../lib/db');
 var tags = require('./tags');
+var media = require('./media');
 
 var validRatings = ['general', 'mature', 'adult'];
 
 function create(info) {
 	var owner = info.owner;
 	var thumbnail = info.thumbnail;
+	var submissionMedia = info.media;
 	var title = info.title;
 	var description = info.description;
 	var rating = info.rating;
@@ -28,6 +31,10 @@ function create(info) {
 
 	if ((owner | 0) !== owner) {
 		return Promise.reject(new TypeError('owner should be an integer.'));
+	}
+
+	if ((submissionMedia | 0) !== submissionMedia) {
+		return Promise.reject(new TypeError('submissionMedia should be an integer.'));
 	}
 
 	if (thumbnail !== null && (thumbnail | 0) !== thumbnail) {
@@ -90,10 +97,10 @@ function create(info) {
 						});
 					});
 
-				return tagsReady.then(function () {
-					return submissionId;
-				});
+				return tagsReady.then(_.constant(submissionId));
 			});
+		}).then(function (submissionId) {
+			return media.associateWithSubmission(submissionMedia, submissionId).then(_.constant(submissionId));
 		});
 	});
 }

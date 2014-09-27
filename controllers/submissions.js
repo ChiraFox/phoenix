@@ -1,6 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
 var Promise = require('bluebird');
 var util = require('util');
 var formSession = require('../lib/form-session');
@@ -18,28 +17,30 @@ var createForm = permission.require('submit', view('submissions/edit', [tags.mos
 
 var upload = permission.require('submit', function upload(request) {
 	return formSession.formFiles(request).then(function (form) {
-		return new Promise(function (resolve) {
-			var uploadHash = null;
+		var submissionUpload = Promise.resolve(null);
 
-			form.on('file', function processFile(name, file) {
-				if (name !== 'file') {
-					file.stream.resume();
-					return;
-				}
+		form.on('file', function processFile(name, file) {
+			if (name !== 'file') {
+				file.stream.resume();
+				return;
+			}
 
-				form.removeListener('file', processFile);
+			form.removeListener('file', processFile);
 
-				uploadHash = media.upload(file.stream);
+			submissionUpload = media.upload(file.stream);
+		});
+
+		function completeUpload() {
+			return submissionUpload.then(function (submissionMedia) {
+				return submissionMedia ?
+					new Redirect('/submissions/new?submit=' + submissionMedia.hash, Redirect.SEE_OTHER) :
+					new Redirect('/submissions/upload');
 			});
+		}
 
+		return new Promise(function (resolve) {
 			form.on('finish', function () {
-				resolve(Promise.resolve(uploadHash).then(function (hexDigest) {
-					if (!hexDigest) {
-						return new Redirect('/submissions/upload');
-					}
-
-					return new Redirect('/submissions/new?submit=' + hexDigest, Redirect.SEE_OTHER);
-				}));
+				resolve(completeUpload());
 			});
 		});
 	});
@@ -47,46 +48,43 @@ var upload = permission.require('submit', function upload(request) {
 
 var create = permission.require('submit', function create(request) {
 	return formSession.formFiles(request).then(function (form) {
-		return new Promise(function (resolve) {
-			var thumbnailHash = null;
+		var thumbnailUpload = Promise.resolve(null);
 
-			form.on('file', function processFile(name, file) {
-				if (name !== 'thumbnail') {
-					file.stream.resume();
-					return;
-				}
+		function completeSubmission() {
+			return media.byHash(form.fields.media).then(function (submitMedia) {
+				return thumbnailUpload.then(function (thumbnailMedia) {
+					return submissions.create({
+						owner: request.user.id,
+						media: submitMedia.id,
+						thumbnail: thumbnailMedia && thumbnailMedia.id,
+						title: form.fields.title,
+						description: form.fields.description,
+						rating: form.fields.rating,
+						tags: form.fields.tags
+					});
+				}).then(function (submissionId) {
+					var titleSlug = slug.slugFor(form.fields.title);
+					var submissionPath = util.format('/submissions/%d/%s', submissionId, titleSlug);
 
-				form.removeListener('file', processFile);
-
-				thumbnailHash = media.upload(file.stream);
+					return new Redirect(submissionPath);
+				});
 			});
+		}
 
+		form.on('file', function processFile(name, file) {
+			if (name !== 'thumbnail') {
+				file.stream.resume();
+				return;
+			}
+
+			form.removeListener('file', processFile);
+
+			thumbnailUpload = media.upload(file.stream);
+		});
+
+		return new Promise(function (resolve) {
 			form.on('finish', function () {
-				resolve(media.byHash(form.fields.media).then(
-					function (submitMedia) {
-						return Promise.resolve(thumbnailHash).then(function (hexDigest) {
-							var thumbnail = hexDigest ? media.byHash(hexDigest) : Promise.resolve(null);
-
-							return thumbnail.then(function (thumbnailMedia) {
-								return submissions.create({
-									owner: request.user.id,
-									thumbnail: thumbnailMedia && thumbnailMedia.id,
-									title: form.fields.title,
-									description: form.fields.description,
-									rating: form.fields.rating,
-									tags: form.fields.tags
-								});
-							});
-						}).then(function (submissionId) {
-							var titleSlug = slug.slugFor(form.fields.title);
-							var submissionPath = util.format('/submissions/%d/%s', submissionId, titleSlug);
-
-							return media.associateWithSubmission(submitMedia.id, submissionId)
-								.then(_.constant(new Redirect(submissionPath)));
-						});
-					},
-					_.constant(new Redirect('/submissions/new'))
-				));
+				resolve(completeSubmission());
 			});
 		});
 	});

@@ -25,6 +25,15 @@ function associateWithSubmission(mediaId, submissionId) {
 	return db.query('INSERT INTO submission_media (media, submission) VALUES ($1, $2)', [mediaId, submissionId]);
 }
 
+function byHash(hash) {
+	return db.query(
+		'SELECT id, hash, type, width, height FROM media WHERE hash = $1',
+		[hash]
+	).then(function (result) {
+		return result.rows[0] || Promise.reject(new Error('No media available with that hash.'));
+	});
+}
+
 function upload(uploadStream) {
 	return crypto.randomBytesAsync(15).then(function (bytes) {
 		var hash = crypto.createHash('sha256');
@@ -36,46 +45,38 @@ function upload(uploadStream) {
 		uploadStream.pipe(identifyStream);
 		uploadStream.pipe(temporaryFileStream);
 
+		function completeUpload() {
+			var hexDigest = hash.read().toString('hex');
+
+			if (hexDigest === EMPTY_UPLOAD) {
+				return null;
+			}
+
+			var identifiedType = identifyStream.identifiedType;
+
+			if (!identifiedType) {
+				return fs.unlinkAsync(temporaryPath)
+					.then(Promise.reject(_.constant(new Error('Unrecognized file type.'))));
+			}
+
+			return fs.renameAsync(temporaryPath, path.join(mediaDirectory, hexDigest + '.' + identifiedType)).then(function () {
+				return db.query('INSERT INTO media (hash, type) VALUES ($1, $2) RETURNING id, hash, type, width, height', [hexDigest, identifiedType])
+					.then(
+						function (result) {
+							return result.rows[0];
+						},
+						function () {
+							return byHash(hexDigest);
+						}
+					);
+			});
+		}
+
 		return new Promise(function (resolve) {
 			uploadStream.on('end', function () {
-				var hexDigest = hash.read().toString('hex');
-
-				if (hexDigest === EMPTY_UPLOAD) {
-					resolve(null);
-					return;
-				}
-
-				var identifiedType = identifyStream.identifiedType;
-
-				if (!identifiedType) {
-					resolve(
-						fs.unlinkAsync(temporaryPath).then(
-							_.constant(Promise.reject(new Error('Unrecognized file type.')))
-						)
-					);
-
-					return;
-				}
-
-				resolve(
-					fs.renameAsync(temporaryPath, path.join(mediaDirectory, hexDigest + '.' + identifiedType))
-						.then(function () {
-							return db.query('INSERT INTO media (hash, type) VALUES ($1, $2)', [hexDigest, identifiedType])
-								.catch(_.noop);
-						})
-						.then(_.constant(hexDigest))
-				);
+				resolve(completeUpload());
 			});
 		});
-	});
-}
-
-function byHash(hash) {
-	return db.query(
-		'SELECT id, hash, type, width, height FROM media WHERE hash = $1',
-		[hash]
-	).then(function (result) {
-		return result.rows[0] || Promise.reject(new Error('No media available with that hash.'));
 	});
 }
 

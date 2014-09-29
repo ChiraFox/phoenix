@@ -10,6 +10,7 @@ exports.up = function (query) {
 			"CREATE TABLE submission_media (\
 				submission INTEGER NOT NULL REFERENCES submissions (id),\
 				media INTEGER NOT NULL REFERENCES media (id)\
+				PRIMARY KEY (submission, media)\
 			)"
 		));
 };

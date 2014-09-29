@@ -1,7 +1,7 @@
 'use strict';
 
 var view = require('../lib/view').view;
+var models = require('../models');
 var notifications = require('../models/notifications');
-var users = require('../models/users');
 
-exports.homepage = view('users/profile', [users.byUsernameParameter, notifications.counts]);
+exports.homepage = view('users/profile', [models.User.byUsernameParameter, notifications.counts]);

@@ -11,22 +11,22 @@ replace content
 
 	dl id: "user-info"
 		dt "Username"
-		dd "#{user.username}"
+		dd "#{user.get('username')}"
 
 		dt "Registered"
-		dd "#{user.registered}"
+		dd "#{user.get('registered')}"
 
 		dt "Full name"
-		dd "#{user.full_name}"
+		dd "#{user.get('full_name')}"
 
 		dt "Artist type"
-		dd "#{user.artist_type}"
+		dd "#{user.get('artist_type')}"
 
 		dt "Mood"
-		dd "#{user.current_mood}"
+		dd "#{user.get('current_mood')}"
 
 		dt "Profile views"
-		dd "#{user.views}"
+		dd "#{user.get('views')}"
 
 	div id: "user-profile-text"
-		!"#{bbcode(user.profile_text)}"
+		!"#{bbcode(user.get('profile_text'))}"

@@ -11,7 +11,7 @@ function toInteger(obj) {
 var keys = ['submissions', 'comments', 'journals', 'streams', 'watches', 'notes'];
 
 function counts(request) {
-	if (!request.user.id) {
+	if (!request.user) {
 		return Promise.resolve(null);
 	}
 

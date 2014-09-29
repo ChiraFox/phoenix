@@ -9,12 +9,12 @@ append stylesheets
 replace content
 	form id: "submission-edit-form" method: "POST" action: "/submissions/" enctype: "multipart/form-data"
 		% csrf();
-		% var isImage = ['png', 'jpeg', 'gif', 'tiff'].indexOf(data.media.type) !== -1;
+		% var isImage = ['png', 'jpeg', 'gif', 'tiff'].indexOf(data.media.get('type')) !== -1;
 
 		input
 			type: "hidden"
 			name: "media"
-			value: "#{data.media.hash}"
+			value: "#{data.media.get('hash')}"
 
 		header id: "submission-edit-info"
 			div class: "submission-type"
@@ -27,7 +27,7 @@ replace content
 
 		div id: "preview"
 			if isImage
-				img src: "/media/#{data.media.hash}.#{data.media.type}" alt: "Submission preview"
+				img src: "/media/#{data.media.get('hash')}.#{data.media.get('type')}" alt: "Submission preview"
 			else
 				p "No preview available."
 
@@ -85,7 +85,7 @@ replace content
 
 		section id: "thumbnail"
 			if isImage
-				data-crop-initial-source: "/media/#{data.media.hash}.#{data.media.type}"
+				data-crop-initial-source: "/media/#{data.media.get('hash')}.#{data.media.get('type')}"
 
 			h3 "Thumbnail"
 
@@ -119,8 +119,8 @@ replace content
 						"My Tags"
 
 					ul id: "common-tags"
-						for tag of data.commonTags
-							li "#{tag.name}"
+						for tag of data.commonTags.models
+							li "#{tag.get('name')}"
 
 		section id: "portfolios"
 			h3 "Portfolios"

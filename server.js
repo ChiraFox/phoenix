@@ -1,5 +1,7 @@
 'use strict';
 
+require('bluebird').longStackTraces();
+
 var app = require('./application');
 var rateLimit = require('./lib/rate-limit');
 

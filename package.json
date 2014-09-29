@@ -6,8 +6,10 @@
 		"email": "phoenix@furaffinity.net"
 	},
 	"dependencies": {
-		"bluebird": "~2.3.2",
-		"pg": "~3.4.4",
+		"bluebird": "~2.3.4",
+		"pg": "~3.4.5",
+		"knex": "~0.6.22",
+		"bookshelf": "~0.7.7",
 		"redis": "~0.12.1",
 		"sharp": "~0.6.2",
 		"busboy": "~0.2.9",

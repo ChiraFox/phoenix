@@ -34,8 +34,8 @@ html
 				% var requester = data.requester;
 
 				ul id: "user-navigation"
-					if requester.id
-						li a "~#{requester.username}" href: "/users/#{requester.username}/"
+					if requester
+						li a "~#{requester.get('username')}" href: "/users/#{requester.get('username')}/"
 
 						li a "Settings" href: "/settings/"
 

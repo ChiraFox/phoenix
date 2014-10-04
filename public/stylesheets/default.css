@@ -313,6 +313,10 @@ nav ul {
 	padding: 0;
 }
 
+nav ul {
+	display: inline-block;
+}
+
 nav ul:first-of-type {
 	display: flex;
 	flex: 0 auto;
@@ -330,7 +334,22 @@ nav a, #log-out {
 	padding: 0.725em 1.125em;
 }
 
-#main-navigation, #user-navigation {
+nav.sub-nav {
+	background-color: #202225;
+}
+
+nav.sub-nav a.selected {
+	background-color: #323539;
+	color: #fff;
+}
+
+nav.center {
+	justify-content: center;
+}
+
+
+#main-navigation, 
+#user-navigation {
 	background-color: #121416;
 }
 

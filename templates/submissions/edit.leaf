@@ -31,6 +31,14 @@ replace content
 			else
 				p "No preview available."
 
+		nav .sub-nav.center
+			ul
+				li a .selected "General Data" href: "#general"
+				li a "Thumbnail" href: "#thumbnail"
+				li a "Tags" href: "#tags"
+				li a "Portfolios" href: "#portfolios"
+				li a "Publishing" href: "#publishing"
+
 		section id: "general"
 			h3 "General Data"
 
@@ -176,14 +184,6 @@ replace content
 						name: "postdate"
 						class: "text"
 						placeholder: "tomorrow at 5 am pst"
-
-		nav class: "submission-section-tabs"
-			ul
-				li a "General Data" href: "#general"
-				li a "Thumbnail" href: "#thumbnail"
-				li a "Tags" href: "#tags"
-				li a "Portfolios" href: "#portfolios"
-				li a "Publishing" href: "#publishing"
 
 		footer class: "form-actions"
 			" " button "Save" class: "button submit" name: "do" value: "save"

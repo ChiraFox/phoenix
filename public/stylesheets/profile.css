@@ -1,282 +1,59 @@
-/* Nav Overrides
--------------------------------*/
-#sub-nav {
-	background-color: #323539;
-}
+section#user-stats { display: flex; padding: 10px; background-color: #202225}
+section#user-stats div.info { flex: 1; display: flex; flex-flow: row wrap; padding: 0 10px; background-color: #202225}
+section#user-stats div.info h2 { flex: 1 100%; margin: 5px 0 5px 10px;}
+section#user-stats div.info dl { flex: 0 1 300px;}
 
-#sub-nav a.selected {
-	background-color: #202225;
-}
+section#user-stats div#user-actions { text-align: right;}
+section#user-stats div#user-actions .streaming { line-height: 1.5em; padding: 10px; background-color: #191a1c; display: inline-block; margin-bottom: 10px;}
+section#user-stats div#user-actions .streaming:after { content:"\A"; white-space:pre; }
+section#user-stats div#user-actions .streaming:before { content:"●"; color: #0f0; margin-right: 5px; font-size: 1.2em;}
+section#user-stats div#user-actions .streaming  a { margin-left: 20px; color: #a4a4a4; }
+section#user-stats div#user-actions .button { margin-left: 10px; }
 
-#user-gallery nav a.selected {
-	background-color: #323539;
-	border-radius: 6px;
-}
+section#user-gallery { background-color: #3F4347; display: flex; flex-flow: row wrap; padding: 12px;}
 
-#user-stats {
-	background-color: #202225;
-	display: flex;
-	padding: 10px;
-}
+section#user-gallery nav { margin-bottom: 14px; flex: 1 100%; }
+section#user-gallery nav ul:first-of-type { margin-right: 355px; }
+section#user-gallery nav a.selected { background-color: #323539; border-radius: 6px; }
 
-#user-info {
-	background-color: #202225;
-	display: flex;
-	flex: 1;
-	flex-flow: row wrap;
-	padding: 0 10px;
-}
+section#user-gallery div.preview { padding: 0 25px; text-align: center; flex: 0 0 500px; }
+section#user-gallery div.preview a.preview { height: 350px; width: 500px; }
+section#user-gallery div.preview .caption { font-size: 1.1em; font-weight: bold;}
+section#user-gallery div.preview .post-date{ font-size:0.8em; display: block;}
 
-#user-info h2 {
-	flex: 1 100%;
-	margin: 5px 0 5px 10px;
-}
+section#user-gallery div.image-grid { flex: 1; }
+section#user-gallery div.image-grid ul { height: 350px; overflow: hidden; margin-bottom: 10px; }
+section#user-gallery div.image-grid li { float: left; margin: 0 10px 10px 0;}
+section#user-gallery div.image-grid .info { text-align: right; clear: left; padding: 0 1.2em;}
+section#user-gallery div.image-grid .info a.button{ margin-left: 10px; }
 
-#user-info dl {
-	flex: 0 1 300px;
-}
+section#user-profile {display: flex; padding: 12px;}
 
-#user-actions {
-	text-align: right;
-}
+section#user-profile span.profile-id { display: block; margin: 0 auto; }
 
-#user-actions .streaming {
-	background-color: #191a1c;
-	display: inline-block;
-	line-height: 1.5em;
-	padding: 10px;
-	margin-bottom: 10px;
-}
+section#user-profile div.info span.preview { height: 460px; width: 460px;}
+section#user-profile div.info { flex: 1; margin: 0 24px;}
 
-#user-actions .streaming::after {
-	content: '\A';
-	white-space: pre;
-}
+section#user-profile dl.social-links { line-height: 32px;}
+section#user-profile dl.social-links dt { width: 250px;}
 
-#user-actions .streaming::before {
-	color: #0f0;
-	content: '●';
-	font-size: 1.2em;
-	margin-right: 5px;
-}
+section#user-profile div.shouts { flex: 1; margin: 0 24px;}
+section#user-profile div.shouts div.leave-a-shout {display: flex;}
+section#user-profile div.shouts div.leave-a-shout > a {margin-right: 10px;}
+section#user-profile div.shouts div.leave-a-shout > div {flex: 1; position: relative; margin-left: 10px; }
+section#user-profile div.shouts div.leave-a-shout > div:after { top: 16px; left: -10px; bottom: auto; border-width: 6px 10px 6px 0; border-color: transparent #4f545a; content: ""; position: absolute; border-style: solid; display: block; width: 0; }
+section#user-profile div.shouts div.leave-a-shout textarea { height: 100px; width: 100%; border-radius: 6px; }
+section#user-profile div.shouts div.leave-a-shout button { clear: both; float: right; margin:10px 0;}
 
-#user-actions .streaming a {
-	color: #a4a4a4;
-	margin-left: 20px;
-}
+section#user-profile div.shouts ul.shouts > li { margin-bottom: 10px; display: flex;}
+section#user-profile div.shouts ul.shouts > li > a.avatar { margin-right: 10px}
+section#user-profile div.shouts ul.shouts > li > div { flex: 1; display: flex; flex-flow: row wrap; align-content: flex-start;}
+section#user-profile div.shouts ul.shouts h5 { padding: 0; margin: 0 0 5px 10px; font-size: 1em; font-weight: normal; }
+section#user-profile div.shouts ul.shouts span { flex: 1; margin-left: 10px; font-size: .8em; text-align: right; }
+section#user-profile div.shouts ul.shouts div.post { flex: 1 100%; width: 100%; margin-left: 10px; padding: 10px; background-color: #4f545a; border-radius: 6px; position: relative; }
+section#user-profile div.shouts ul.shouts div.post p { margin: 0 0 5px; }
+section#user-profile div.shouts ul.shouts div.post:after { top: 16px; left: -10px; bottom: auto; border-width: 6px 10px 6px 0; border-color: transparent #4f545a; content: ""; position: absolute; border-style: solid; display: block; width: 0; }
 
-#user-actions .button {
-	margin-left: 10px;
-}
-
-#user-gallery {
-	background-color: #3F4347;
-	display: flex;
-	flex-flow: row wrap;
-	padding: 12px;
-}
-
-#user-gallery nav {
-	flex: 1 100%;
-	margin-bottom: 14px;
-}
-
-#user-gallery nav ul:first-of-type {
-	margin-right: 355px;
-}
-
-#preview {
-	padding: 0 25px;
-	text-align: center;
-	flex: 0 0 500px;
-}
-
-#preview figure {
-	margin: 0;
-}
-
-#preview-image {
-	height: 350px;
-	width: 500px;
-}
-
-#preview .caption {
-	font-size: 1.1em;
-	font-weight: bold;
-}
-
-#preview .post-date {
-	display: block;
-	font-size: 0.8em;
-}
-
-#user-gallery .image-grid {
-	flex: 1;
-}
-
-#user-gallery .image-grid ul {
-	height: 350px;
-	margin-bottom: 10px;
-	overflow: hidden;
-}
-
-#user-gallery .image-grid li {
-	float: left;
-	margin: 0 10px 10px 0;
-}
-
-#user-gallery .image-grid .info {
-	clear: left;
-	padding: 0 1.2em;
-	text-align: right;
-}
-
-#user-gallery .image-grid .info .button {
-	margin-left: 10px;
-}
-
-#user-profile {
-	display: flex;
-	padding: 12px;
-}
-
-#user-profile .profile-id {
-	display: block;
-	margin: 0 auto;
-}
-
-#profile-info .preview {
-	height: 460px;
-	width: 460px;
-}
-
-#profile-info {
-	flex: 1;
-	margin: 0 24px;
-}
-
-#profile-info .social-links {
-	line-height: 32px;
-}
-
-#profile-info .social-links dt {
-	width: 250px;
-}
-
-#shouts {
-	flex: 1;
-	margin: 0 24px;
-}
-
-#shouts .leave-a-shout {
-	display: flex;
-}
-
-#shouts .leave-a-shout > a {
-	margin-right: 10px;
-}
-
-#shouts .leave-a-shout > div {
-	flex: 1;
-	position: relative;
-	margin-left: 10px;
-}
-
-#shouts .leave-a-shout > div::after {
-	top: 16px;
-	left: -10px;
-	bottom: auto;
-	border-width: 5px 10px 5px 0;
-	border-color: transparent #4f545a;
-	content: "";
-	position: absolute;
-	border-style: solid;
-	display: block;
-	width: 0;
-}
-
-#shouts .leave-a-shout textarea {
-	height: 100px;
-	width: 100%;
-	border-radius: 6px;
-}
-
-#shouts .leave-a-shout button {
-	clear: both;
-	float: right;
-	margin: 10px 0;
-}
-
-#shouts .shout {
-	margin-bottom: 10px;
-	display: flex;
-}
-
-#shouts .shout > .avatar {
-	margin-right: 10px;
-}
-
-#shouts .shout > div {
-	flex: 1;
-	display: flex;
-	flex-flow: row wrap;
-	align-content: flex-start;
-}
-
-#shouts .shout h5 {
-	padding: 0;
-	margin: 0 0 5px 10px;
-	font-size: 1em;
-	font-weight: normal;
-}
-
-#shouts .shout .post-date {
-	flex: 1;
-	margin-left: 10px;
-	font-size: .8em;
-	text-align: right;
-}
-
-#shouts .shout-body {
-	flex: 1 100%;
-	width: 100%;
-	margin-left: 10px;
-	padding: 10px;
-	background-color: #4f545a;
-	border-radius: 6px;
-	position: relative;
-}
-
-#shouts .shout-body p {
-	margin: 0 0 5px;
-}
-
-#shouts .shout-body::after {
-	border-color: transparent #4f545a;
-	border-style: solid;
-	border-width: 5px 10px 5px 0;
-	bottom: auto;
-	content: "";
-	display: block;
-	left: -10px;
-	position: absolute;
-	top: 16px;
-	width: 0;
-}
-
-#profile-info .journal {
-	background-color: #4f545a;
-	border-radius: 6px;
-	padding: 10px;
-	position: relative;
-}
-
-#profile-info .journal h4 {
-	margin: 9px 0;
-}
-
-#profile-info .journal .read-more {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-}
+section#user-profile div.info div.journal { background-color: #4f545a; border-radius: 6px; padding: 10px; position: relative;}
+section#user-profile div.info div.journal h4 { margin: 9px 0; }
+section#user-profile div.info div.journal .read-more { position: absolute; top: 10px; right: 10px; }

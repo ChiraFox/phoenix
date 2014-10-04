@@ -47,49 +47,6 @@
 	max-width: 100%;
 }
 
-#submission-edit-form .submission-section-tabs {
-	background-color: #202225;
-	display: block;
-	font-size: 1.3em;
-	font-weight: 300;
-	order: -1;
-	position: sticky;
-	top: 0;
-	z-index: 1;
-}
-
-#submission-edit-form .submission-section-tabs ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-}
-
-#submission-edit-form .submission-section-tabs li {
-	display: inline-block;
-}
-
-#submission-edit-form .submission-section-tabs a {
-	color: #888;
-	display: inline-block;
-	padding: 0.5em 0.8em;
-}
-
-#thumbnail:target ~ .submission-section-tabs a[href='#thumbnail'],
-#tags:target ~ .submission-section-tabs a[href='#tags'],
-#portfolios:target ~ .submission-section-tabs a[href='#portfolios'],
-#publishing:target ~ .submission-section-tabs a[href='#publishing'],
-#submission-edit-form #general:target ~ .submission-section-tabs a[href='#general'],
-#submission-edit-form .submission-section-tabs a[href='#general'] {
-	background-color: #323539;
-	color: white;
-}
-
-#submission-edit-form section:target ~ .submission-section-tabs a[href='#general'] {
-	background-color: transparent;
-	color: #888;
-}
-
 #submission-edit-form > section {
 	margin: 0 auto;
 	padding-top: 2.2em;

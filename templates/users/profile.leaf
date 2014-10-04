@@ -17,9 +17,7 @@ replace content
 		ul
 			li a "User Page" .selected
 			li a "Gallery" href: "#"
-			li a "Scraps" href: "#"
 			li a "Journals" href: "#"
-			li a "Commission" href: "#"
 			li a "Info" href: "#"
 			li a "Favorites" href: "#"
 		ul

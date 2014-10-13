@@ -7,15 +7,14 @@ sudo apt-get install -y libpcre3-dev libssl-dev postgresql libpq-dev redis-serve
 sudo ln -s /usr/bin/nodejs /usr/bin/node # node-bcrypt bug
 
 # Nginx
-tar xf nginx-1.7.5.tar.gz
-cd nginx-1.7.5/
+tar xf nginx-1.7.6.tar.gz
+cd nginx-1.7.6/
 ./configure --with-ipv6 --with-http_ssl_module --with-http_spdy_module
 make
 sudo make install
 cd ../
 
 sudo cp nginx.conf /usr/local/nginx/conf/nginx.conf
-test -e /usr/local/nginx/logs/nginx.pid && sudo /usr/local/nginx/sbin/nginx -s stop
 sudo /usr/local/nginx/sbin/nginx
 
 sudo cp nginx /etc/init.d/nginx

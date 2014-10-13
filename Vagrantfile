@@ -5,7 +5,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.vm.network 'forwarded_port', guest: 80, host: 2200
 
-	config.vm.provision 'file', source: 'vagrant/nginx-1.7.5.tar.gz', destination: 'nginx-1.7.5.tar.gz'
+	config.vm.provision 'file', source: 'vagrant/nginx-1.7.6.tar.gz', destination: 'nginx-1.7.6.tar.gz'
 	config.vm.provision 'file', source: 'vagrant/nginx.conf', destination: 'nginx.conf'
 	config.vm.provision 'file', source: 'vagrant/nginx', destination: 'nginx'
 	config.vm.provision 'file', source: 'vagrant/pg_hba.conf', destination: 'pg_hba.conf'
